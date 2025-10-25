@@ -14,6 +14,18 @@ double ScorditePye(int);
 void   Plagioclase(int&, int&);
 double PlagioclaseTri(int);
 double PlagioclaseMex(int);
+// Pyroxeres Functions
+void   Pyroxeres(int&, int&);
+double PyroxeresPye(int);
+double PyroxeresMex(int);
+// Omber Functions
+void   Omber(int&, int&);
+double OmberPye(int);
+double OmberIso(int);
+// Kernite Functions
+void   Kernite(int&, int&);
+double KerniteMex(int);
+double KerniteIso(int);
 
 int main(){
     int totalTritanium = 0;
@@ -53,7 +65,7 @@ void   OreChoice(int& totalTritanium, int& totalPyerite, int& totalMexallon, int
     bool isValid = false;
     int oreChoice;
     while(isValid == false){
-        std :: cout << "What ore would you like to reprocess? \n 1. Veldspar \n 2. Scordite \n 3. Plagioclase \n" << std :: endl;
+        std :: cout << "What ore would you like to reprocess? \n 1. Veldspar \n 2. Scordite \n 3. Plagioclase \n 4. Pyroxeres \n 5. Omber \n 6. Kernite \n 7." << std :: endl;
         std :: cin >> oreChoice;
 
         switch(oreChoice){
@@ -67,6 +79,18 @@ void   OreChoice(int& totalTritanium, int& totalPyerite, int& totalMexallon, int
                 break;
             case 3:
                 Plagioclase(totalTritanium, totalMexallon);
+                isValid = true;
+                break;
+            case 4:
+                Pyroxeres(totalPyerite, totalMegacyte);
+                isValid = true;
+                break;
+            case 5:
+                Omber(totalPyerite, totalIsogen);
+                isValid = true;
+                break;
+            case 6:
+                Kernite(totalMexallon, totalIsogen);
                 isValid = true;
                 break;
             default:
@@ -147,4 +171,73 @@ double PlagioclaseMex(int totalPlagioclase){
     double mexallonInPlagioclase;
     mexallonInPlagioclase = (totalPlagioclase / 100.0) * PlagioclaseMex;
     return mexallonInPlagioclase;
+}
+
+void   Pyroxeres(int& totalPyerite, int& totalMexallon){
+    int totalPyroxeres;
+    std :: cout << "How much Pyroxeres is being reproccessed?" << std :: endl;
+    std :: cin >> totalPyroxeres;
+
+    totalPyerite  = PyroxeresPye(totalPyroxeres) + totalPyerite;
+    totalMexallon  = PyroxeresMex(totalPyroxeres) + totalMexallon;
+}
+
+double PyroxeresPye(int totalPyroxeres){
+    const int PyroxeresPye = 90;
+    double pyeriteInPyroxeres;
+    pyeriteInPyroxeres = (totalPyroxeres / 100.0) * PyroxeresPye;
+    return pyeriteInPyroxeres;
+}
+
+double PyroxeresMex(int totalPyroxeres){
+    const int PyroxeresMex = 30;
+    double mexallonInPyroxeres;
+    mexallonInPyroxeres = (totalPyroxeres / 100.0) * PyroxeresMex;
+    return mexallonInPyroxeres;
+}
+
+void   Omber(int& totalPyerite, int& totalIsogen){
+    int totalOmber;
+    std :: cout << "How much Omber is being reproccessed?" << std :: endl;
+    std :: cin >> totalOmber;
+
+    totalPyerite  = OmberPye(totalOmber) + totalPyerite;
+    totalIsogen  = OmberIso(totalOmber) + totalIsogen;
+}
+
+double OmberPye(int totalOmber){
+    const int OmberPye = 90;
+    double pyeriteInOmber;
+    pyeriteInOmber = (totalOmber / 100.0) * OmberPye;
+    return pyeriteInOmber;
+}
+
+double OmberIso(int totalOmber){
+    const int OmberIso = 75;
+    double isogenInOmber;
+    isogenInOmber = (totalOmber / 100.0) * OmberIso;
+    return isogenInOmber;
+}
+
+void   Kernite(int& totalMexallon, int& totalIsogen){
+    int totalKernite;
+    std :: cout << "How much Kernite is being reproccessed?" << std :: endl;
+    std :: cin >> totalKernite;
+
+    totalMexallon  = KerniteMex(totalKernite) + totalMexallon;
+    totalIsogen  = KerniteIso(totalKernite) + totalIsogen;
+}
+
+double KerniteMex(int totalKernite){
+    const int KerniteMex = 60;
+    double mexallonInKernite;
+    mexallonInKernite = (totalKernite / 100.0) * KerniteMex;
+    return mexallonInKernite;
+}
+
+double KerniteIso(int totalKernite){
+    const int KerniteIso = 120;
+    double isogenInKernite;
+    isogenInKernite = (totalKernite / 100.0) * KerniteIso;
+    return isogenInKernite;
 }
