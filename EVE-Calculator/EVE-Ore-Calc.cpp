@@ -40,6 +40,7 @@ int main(){
     char keepRunning;
     
     while(runAgain == true){
+        isValid = false;
         OreChoice(totalTritanium, totalPyerite, totalMexallon, totalIsogen, totalNocxium, totalZydrine, totalMegacyte);
         while(isValid == false){
             std :: cout << "Would you like to calculate another ore? (y/n)" << std :: endl;
