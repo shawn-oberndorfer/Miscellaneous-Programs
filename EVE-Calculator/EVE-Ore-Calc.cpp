@@ -26,6 +26,10 @@ double OmberIso(int);
 void   Kernite(int&, int&);
 double KerniteMex(int);
 double KerniteIso(int);
+// Jaspet Functions
+void Jaspet(int&, int&);
+double JaspetMex(int);
+double JaspetNoc(int);
 
 int main(){
     int totalTritanium = 0;
@@ -66,7 +70,7 @@ void   OreChoice(int& totalTritanium, int& totalPyerite, int& totalMexallon, int
     bool isValid = false;
     int oreChoice;
     while(isValid == false){
-        std :: cout << "What ore would you like to reprocess? \n 1. Veldspar \n 2. Scordite \n 3. Plagioclase \n 4. Pyroxeres \n 5. Omber \n 6. Kernite \n 7." << std :: endl;
+        std :: cout << "What ore would you like to reprocess? \n 1. Veldspar \n 2. Scordite \n 3. Plagioclase \n 4. Pyroxeres \n 5. Omber \n 6. Kernite \n 7. Jaspet \n" << std :: endl;
         std :: cin >> oreChoice;
 
         switch(oreChoice){
@@ -92,6 +96,10 @@ void   OreChoice(int& totalTritanium, int& totalPyerite, int& totalMexallon, int
                 break;
             case 6:
                 Kernite(totalMexallon, totalIsogen);
+                isValid = true;
+                break;
+            case 7:
+                Jaspet(totalMexallon, totalNocxium);
                 isValid = true;
                 break;
             default:
@@ -241,4 +249,26 @@ double KerniteIso(int totalKernite){
     double isogenInKernite;
     isogenInKernite = (totalKernite / 100.0) * KerniteIso;
     return isogenInKernite;
+}
+void   Jaspet(int& totalMexallon, int& totalNocxium){
+    int totalJaspet;
+    std :: cout << "How much Jaspet is being reproccessed?" << std :: endl;
+    std :: cin >> totalJaspet;
+
+    totalMexallon = JaspetMex(totalJaspet) + totalMexallon;
+    totalNocxium = JaspetNoc(totalJaspet) + totalNocxium;
+}
+
+double JaspetMex(int totalJaspet){
+    const int JaspetMex = 150;
+    double mexallonInJaspet;
+    mexallonInJaspet = (totalJaspet / 100.0) * JaspetMex;
+    return mexallonInJaspet;
+}
+
+double JaspetNoc(int totalJaspet){
+    const int JaspetNoc = 50;
+    double nocxiumInJaspet;
+    nocxiumInJaspet = (totalJaspet / 100.0) * JaspetNoc;
+    return nocxiumInJaspet;
 }
