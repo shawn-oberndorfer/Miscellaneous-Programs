@@ -14,10 +14,10 @@ SRCS = main.cpp Ore.cpp Refinery.cpp OreValues.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # Default rule: build the program
-$(Target): $(OBJS)
+$(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 # Rule to build .o files from .cpp
-%.o %.cpp
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 # Clean up build artifacts
 clean: 

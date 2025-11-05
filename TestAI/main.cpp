@@ -31,7 +31,7 @@ int main() {
     auto refined = t1.refine(ores[choice - 1]);
     std::cout << "\nRefined " << units << " units of " << ores[choice - 1].getName() << ":\n";
     for (const auto& [mineral, amount] : refined) {
-        std::cout << "  " << mineral << ": " << amount * units << "\n";
+        std::cout << "  " << mineral << ": " << amount * (units / 100.0) << "\n";
     }
 
     return 0;

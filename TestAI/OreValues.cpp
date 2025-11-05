@@ -3,15 +3,15 @@
 std::vector<Ore> getOres() {
     return {
         Ore("Veldspar", {
-            {"Tritanium", 400.0}
+            {"Tritanium", 4.0}
         }),
         Ore("Scordite", {
-            {"Tritanium", 150.0},
-            {"Pyerite", 110.0}
+            {"Tritanium", 1.5},
+            {"Pyerite", 1.1}
         }),
         Ore("Pyroxeres", {
-            {"Pyerite", 90.0},
-            {"Mexallon", 30.0}
+            {"Pyerite", 0.9},
+            {"Mexallon", 0.03}
         })
 
     };
