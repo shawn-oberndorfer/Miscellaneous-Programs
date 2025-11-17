@@ -12,11 +12,16 @@ string round1[3] = {"Blank", "Live", "Blank"};
 string round2[4] = {"Blank", "Live", "Blank", "Live"};
 string round3[5] = {"Live", "Blank", "Live", "Blank", "Live"};
 string round4[7] = {"Blank", "Live", "Blank", "Live", "Blank", "Live", "Live"};
+string items[5] = {"Handcuffs", "Handsaw", "Beer", "Magnifine Glass", "Cigarette"};
+
+bool opponetTurnSkipped = false;
 
 string BulletType(int);
 bool turnOutcome(bool, int&, int&, int);
 bool playerTurn();
 bool opponetTurn();
+void useItems( string&, string&, string&, string&, string&, string&, int&, int& );
+void giveItems(string& , string& , string& , string& , string& , string& );
 void gameOver(int, int);
 int roll(int currentRound[], int);
 
@@ -27,11 +32,14 @@ int main(){
     int opponentHealth = 3;
     int shotsFired;
     bool playersTurn;
+    string playerItem1, playerItem2, playerItem3;
+    string oppItem1, oppItem2, oppItem3;
 
     while(playerHealth > 0 && opponentHealth > 0 && roundNumber < 5){
         cout << "Round " << roundNumber << "!\n";
         cout << "Player Health: " << playerHealth << " | Opponent Health: " << opponentHealth << "\n";
         cout << "There are " << livePerRound[roundNumber - 1] << " live rounds and " << blankPerRound[roundNumber - 1] << " blank rounds in the chamber.\n\n";
+        giveItems(playerItem1, playerItem2, playerItem3, oppItem1, oppItem2, oppItem3);
         shotsFired = 0;
         playersTurn = true;
         while(shotsFired < currentRound[roundNumber - 1]){
@@ -97,13 +105,19 @@ bool playerTurn(){
 }
 
 bool opponetTurn(){
-    int opponentChoice = rand() % 2 + 1;
-    if(opponentChoice == 1){
-        return true;
-    } else if(opponentChoice == 2){
-        return false;
-    } else {
-        return opponetTurn();
+    if(opponetTurnSkipped == true){
+        opponetTurnSkipped = false;
+        cout << "Your opponent's turn is skipped due to Handcuffs!\n\n";
+    } else if(opponetTurnSkipped == false){
+    
+        int opponentChoice = rand() % 2 + 1;
+        if(opponentChoice == 1){
+            return true;
+        } else if(opponentChoice == 2){
+            return false;
+        } else {
+            return opponetTurn();
+        }
     }
 }
 
@@ -116,7 +130,9 @@ bool turnOutcome(bool playersTurn, int &playerHealth, int &opponentHealth, int r
     }
     
     string shotType = BulletType(roundNumber);
-    if(playersTurn == true && playerShot == true){
+    if(opponetTurnSkipped == true && playersTurn == false){
+        playersTurn = true;
+    } else if(playersTurn == true && playerShot == true){
         if(shotType == "Blank"){
             cout << "You shot yourself with a blank round!\n\n";
             playersTurn = true;
@@ -162,6 +178,73 @@ int roll(int currentRound[], int roundNumber){
     int shotFired;
     shotFired = (rand() % currentRound[roundNumber-1]);
     return shotFired;
+}
+
+void useItems(string& playerItem1, string& playerItem2, string& playerItem3, string& oppItem1, string& oppItem2, string& oppItem3, int &playerHealth, int &opponentHealth){
+    int playerChoice;
+    string usedItem;
+    cout << "You have the following items:\n";
+    cout << "1. " << playerItem1 << "\n";
+    cout << "2. " << playerItem2 << "\n";
+    cout << "3. " << playerItem3 << "\n";
+    cin >> playerChoice;
+    switch(playerChoice){
+        case 1:
+            usedItem = playerItem1;
+            playerItem1 = "";
+            break;
+        case 2:
+            usedItem = playerItem2;
+            playerItem2 = "";
+            break;
+        case 3:
+            usedItem = playerItem3;
+            playerItem3 = "";
+            break;
+        default:
+            cout << "Invalid choice. Please choose again.\n";
+            useItems(playerItem1, playerItem2, playerItem3, oppItem1, oppItem2, oppItem3, playerHealth, opponentHealth);
+            return;
+    }
+    if(usedItem == "Handcuffs"){
+        cout << "You used Handcuffs. Your opponent's next turn is skipped.\n";
+        opponetTurnSkipped = true;
+    } else if(usedItem == "Handsaw"){
+        cout << "You used Handsaw. The shotgun now deals 2 health points.\n";
+        
+    } else if(usedItem == "Beer"){
+        cout << "You used Beer. Your opponent loses 1 health point.\n";
+        
+    } else if(usedItem == "Magnifine Glass"){
+        cout << "You used Magnifine Glass. You can see if the next shot is a blank or live.\n";
+        
+    } else if(usedItem == "Cigarette"){
+        cout << "You used Cigarette. You regain 1 health.\n";
+        // Implement effect
+    } else {
+        cout << "No item used.\n";
+    }
+}
+void giveItems(string& playerItem1, string& playerItem2, string& playerItem3, string& oppItem1, string& oppItem2, string& oppItem3){
+    if(playerItem1 == ""){
+        playerItem1 = items[rand() % 5];
+        cout << "You received a " << playerItem1 << "!\n";
+    }if(playerItem2 == ""){
+        playerItem2 = items[rand() % 5];
+        cout << "You received a " << playerItem2 << "!\n";
+    }if(playerItem3 == ""){
+        playerItem3 = items[rand() % 5];
+        cout << "You received a " << playerItem3 << "!\n";
+    }if(oppItem1 == ""){
+        oppItem1 = items[rand() % 5];
+        cout << "Your opponent received a " << oppItem1 << "!\n";
+    }if(oppItem2 == ""){
+        oppItem2 = items[rand() % 5];
+        cout << "Your opponent received a " << oppItem2 << "!\n";
+    }if(oppItem3 == ""){
+        oppItem3 = items[rand() % 5];
+        cout << "Your opponent received a " << oppItem3 << "!\n";
+    }
 }
 
 void gameOver(int playerHealth, int opponentHealth){
